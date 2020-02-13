@@ -4,20 +4,20 @@ from player import Player
 # Declare all the rooms
 
 room = {
-    'outside':  Room("Outside Cave Entrance",
+    'outside':  Room("Outside the Cave Entrance",
                      "North of you, the cave mount beckons", 'outside'),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
+    'foyer':    Room("in the Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""", 'foyer'),
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+    'overlook': Room("at the Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
 the distance, but there is no way across the chasm.""", 'overlook'),
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
+    'narrow':   Room("in the Narrow Passage", """The narrow passage bends here from west
 to north. The smell of gold permeates the air.""", 'narrow'),
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+    'treasure': Room("at the Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", 'treasure'),
 }
@@ -41,10 +41,13 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 def startSession():
-    heroName = input('Welcome...\n\n Please give your hero a name: ')
+    heroName = input('Welcome...\n\nPlease give your hero a name: ')
     currentPlayer = Player(heroName, room['outside'])
     
-    firstMove = input(f'\n\nYou may begin, {currentPlayer.name}. What shall your first move be?\n\n Your options are: "w" to advance, "s" to retreat, "a" to strafe left and "d" to strafe right. Decide now: ')
+    firstMove = input(f"""\n\nYou may begin, {currentPlayer.name}. You are in {currentPlayer.room.name}.
+{currentPlayer.room.desc}. What shall your first move be?\n
+Your options are: "w" to advance, "s" to retreat, "a" to strafe left and "d" to strafe right. 
+Decide now: """)
     maintainSession(currentPlayer, firstMove)
 # Write a loop that:
 #
@@ -79,10 +82,10 @@ def maintainSession(player, firstMove):
     while (playing):
         if (moveIsCardinal(nextMove)):
             if (hasPath(player, nextMove)):
-                print(f"Success, you are in {player.room.name}")
-                nextMove = input("What shall your next move be? ")
+                print(f"\nSuccess, you are {player.room.name}. {player.room.desc}")
+                nextMove = input("\nWhat shall your next move be? ")
             else: 
-                nextMove = input("How hard can this be? Make a valid move: ")
+                nextMove = input("\nHow hard can this be? Make a valid move: ")
         else:
             if (nextMove.lower() == 'q'):
                 playing = False
