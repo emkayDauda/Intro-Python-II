@@ -5,21 +5,21 @@ from player import Player
 
 room = {
     'outside':  Room("Outside the Cave Entrance",
-                     "North of you, the cave mount beckons", 'outside'),
+                     "North of you, the cave mount beckons", 'outside', ['stick, stone']),
 
     'foyer':    Room("in the Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", 'foyer'),
+passages run north and east.""", 'foyer', ['lamp']),
 
     'overlook': Room("at the Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", 'overlook'),
+the distance, but there is no way across the chasm.""", 'overlook', ['candle', 'sword']),
 
     'narrow':   Room("in the Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", 'narrow'),
+to north. The smell of gold permeates the air.""", 'narrow', ['slime essence']),
 
     'treasure': Room("at the Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", 'treasure'),
+earlier adventurers. The only exit is to the south.""", 'treasure', ['empty music box']),
 }
 
 
