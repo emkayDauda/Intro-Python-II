@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -39,6 +40,12 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+def startSession():
+    heroName = input('Welcome...\n\n Please give your hero a name: ')
+    currentPlayer = Player(heroName, 'outside')
+    
+    firstMove = input(f'\n\nYou may begin, {currentPlayer.name}. What shall your first move be?\n\n Your options are: "w" to advance, "s" to retreat, "a" to strafe left and "d" to strafe right. Decide now: ')
+    maintainSession(currentPlayer, firstMove)
 # Write a loop that:
 #
 # * Prints the current room name
@@ -49,3 +56,40 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+
+
+
+def hasPath(player, direction):
+    path = f'{direction}_to'
+    hasRoom = hasattr(room[player.location], path)
+    if (hasRoom):
+        nextRoom = getattr(room[player.location], path)
+        player.location = nextRoom
+        return True
+    else: return False
+
+def moveIsCardinal(move):
+    return move.lower() == 'w' or move.lower() == 's' or move.lower() == 'a' or move.lower() == 'd'
+
+
+def maintainSession(player, firstMove):
+    playing = True
+    nextMove = firstMove
+    while (playing):
+        if (moveIsCardinal(nextMove)):
+            if (hasPath(player, nextMove)):
+                print(f"Success, you are in {player.location}")
+                nextMove = input("What shall your next move be? ")
+            else: 
+                nextMove = input("How hard can this be? Make a valid move: ")
+        else:
+            if (nextMove.lower() == 'q'):
+                playing = False
+            else:
+                nextMove = input("\nFailure\n\nChoose one of the four cardinals, please w, s, a or d: ")
+    
+    print('\n\nThank you for playing this time.\n\n')
+
+
+startSession()
